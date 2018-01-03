@@ -1,7 +1,6 @@
 describe ('Item', () => {
   beforeEach( () => {
     item = new Item('cheese', 2, 5);
-    freeItem = new Item ('free!', 1, 0);
   });
 
   describe ('Properties:', () => {
@@ -26,21 +25,36 @@ describe ('Item', () => {
   });
 
   describe ('#increaseQuality', () => {
-    it ('increases quality by 1', () => {
+    it ('increases the quality by a specified value', () => {
+      item.increaseQuality(2);
+      expect(item.quality).toEqual(7);
+    });
+
+    it ('increases quality by 1 as default', () => {
       item.increaseQuality();
       expect(item.quality).toEqual(6);
+    });
+
+    it ("can't increase quality over 50", () => {
+      item.increaseQuality(50);
+      expect(item.quality).toEqual(50);
     });
   });
 
   describe ('#decreaseQuality', () => {
-    it ('decreases quality by 1', () => {
+    it ('decreases quality by a specified value', () => {
+      item.decreaseQuality(3);
+      expect(item.quality).toEqual(2)
+    });
+
+    it ('decreases quality by 1 as default', () => {
       item.decreaseQuality();
       expect(item.quality).toEqual(4);
     });
 
     it ('cannot reduce quality below 0', () => {
-      freeItem.decreaseQuality();
-      expect(freeItem.quality).toEqual(0);
+      item.decreaseQuality(10)
+      expect(item.quality).toEqual(0);
     });
   });
 

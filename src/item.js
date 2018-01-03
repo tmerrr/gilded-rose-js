@@ -9,12 +9,20 @@ class Item {
     this.sellIn--;
   }
 
-  increaseQuality () {
-    this.quality++;
+  increaseQuality (value = 1) {
+    if ((this.quality + value) >= 50) {
+      this.quality = 50;
+    } else {
+      this.quality += value;
+    }
   }
 
-  decreaseQuality () {
-    if (this.quality > 0) this.quality--;
+  decreaseQuality (value = 1) {
+    if ((this.quality - value) <= 0) {
+      this.expire()
+    } else {
+      this.quality -= value;
+    }
   }
 
   expire () {
