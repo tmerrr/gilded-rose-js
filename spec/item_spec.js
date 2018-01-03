@@ -1,7 +1,7 @@
 describe ('Item', () => {
   beforeEach( () => {
     item = new Item('cheese', 2, 5);
-    freeItem = new Item ('free!', 1, 0)
+    freeItem = new Item ('free!', 1, 0);
   });
 
   describe ('Properties:', () => {
@@ -15,6 +15,13 @@ describe ('Item', () => {
 
     it ('has a quality value', () => {
       expect(item.quality).toEqual(5);
+    });
+  });
+
+  describe ('#decreaseSellIn', () => {
+    it ('decreases the sellIn property by 1', () => {
+      item.decreaseSellIn();
+      expect(item.sellIn).toEqual(1);
     });
   });
 
@@ -34,13 +41,13 @@ describe ('Item', () => {
     it ('cannot reduce quality below 0', () => {
       freeItem.decreaseQuality();
       expect(freeItem.quality).toEqual(0);
-    })
+    });
   });
 
   describe ('#expire', () => {
     it ('sets the quality to 0', () => {
       item.expire();
       expect(item.quality).toEqual(0);
-    })
-  })
+    });
+  });
 });

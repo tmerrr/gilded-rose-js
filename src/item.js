@@ -5,6 +5,10 @@ class Item {
     this.quality = quality;
   }
 
+  decreaseSellIn () {
+    this.sellIn--;
+  }
+
   increaseQuality () {
     this.quality++;
   }
