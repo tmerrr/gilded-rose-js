@@ -52,4 +52,17 @@ describe ('ItemRules', () => {
       expect(pass.quality).toEqual(0);
     });
   });
+
+  describe ('#applyConjured', () => {
+    it ('decreases in quality by 2', () => {
+      rules.applyConjured(conjuredCake);
+      expect(conjuredCake.quality).toEqual(4);
+    });
+
+    it ('decreases in quality by 4 when expired', () => {
+      conjuredCake.sellIn = 0;
+      rules.applyConjured(conjuredCake);
+      expect(conjuredCake.quality).toEqual(2);
+    });
+  });
 });

@@ -151,5 +151,20 @@ describe ('Gilded Rose', () => {
       });
     });
 
+    describe ('updating Conjured items', () => {
+      it ('reduces quality by 2', () => {
+        var shop = new Shop([conjuredCake]);
+        shop.updateQuality();
+        expect(conjuredCake.quality).toEqual(4);
+      });
+
+      it ('reduces quality by 4, when expired', () => {
+        conjuredCake.sellIn = 0;
+        var shop = new Shop([conjuredCake]);
+        shop.updateQuality();
+        expect(conjuredCake.quality).toEqual(2);
+      });
+    });
+
   });
 });

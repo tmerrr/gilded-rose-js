@@ -97,5 +97,16 @@ describe ('Item', () => {
     it ('returns true when item name includes Sulfuras', () => {
       expect(sulfuras.isSulfuras()).toBeTrue();
     });
-  })
+  });
+
+  describe ('#isConjured', () => {
+    it ('returns false when item name does NOT include Conjured', () => {
+      expect(vest.isConjured()).toBeFalse();
+    });
+
+    it ('returns true when item name includes Conjured', () => {
+      var conjuredCake = new Item ('Conjured Cake', 5, 5)
+      expect(conjuredCake.isConjured()).toBeTrue();
+    });
+  });
 });

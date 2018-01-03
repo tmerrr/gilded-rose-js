@@ -40,4 +40,8 @@ class Item {
   isBackstagePass () {
     return this.name.includes('Backstage pass');
   }
+
+  isConjured () {
+    return this.name.includes('Conjured');
+  }
 }

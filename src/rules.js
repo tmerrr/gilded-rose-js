@@ -11,6 +11,14 @@ class ItemRules {
     item.increaseQuality();
   }
 
+  applyConjured (item) {
+    if (item.sellIn <= 0) {
+      item.decreaseQuality(4);
+    } else {
+      item.decreaseQuality(2);
+    }
+  }
+
   applyBackstagePass (item) {
     if (item.sellIn <= 0) {
       item.expire()
