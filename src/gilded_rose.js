@@ -1,6 +1,7 @@
 class Shop {
-  constructor(items=[]){
+  constructor(items = [], rules = new ItemRules ()){
     this.items = items;
+    this._rules = rules;
   }
   updateQuality() {
     this.items.forEach ( (item) => {

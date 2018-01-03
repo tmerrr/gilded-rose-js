@@ -11,6 +11,18 @@ describe ('Gilded Rose', () => {
     conjuredCake = new Item('Conjured Mana Cake', 3, 6);
   });
 
+  describe ('Properties:', () => {
+    it ('has a property of items as an Array', () => {
+      var shop = new Shop ();
+      expect(shop.items).toBeArray();
+    });
+
+    it ('has an instance of ItemRules', () => {
+      var shop = new Shop ();
+      expect(shop._rules.constructor.name).toEqual('ItemRules')
+    })
+  })
+
   describe ('#updateQuality', () => {
     describe ('updating normal items', () => {
       it ('reduces sellIn property of an item, by 1', () => {
