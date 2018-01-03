@@ -36,4 +36,11 @@ describe ('Item', () => {
       expect(freeItem.quality).toEqual(0);
     })
   });
+
+  describe ('#expire', () => {
+    it ('sets the quality to 0', () => {
+      item.expire();
+      expect(item.quality).toEqual(0);
+    })
+  })
 });

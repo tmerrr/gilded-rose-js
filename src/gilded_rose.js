@@ -39,7 +39,7 @@ class Shop {
               }
             }
           } else {
-            this.items[i].quality = this.items[i].quality - this.items[i].quality;
+            this.items[i].expire();
           }
         } else {
           if (this.items[i].quality < 50) {

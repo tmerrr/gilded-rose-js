@@ -5,11 +5,15 @@ class Item {
     this.quality = quality;
   }
 
-  increaseQuality() {
+  increaseQuality () {
     this.quality++;
   }
 
-  decreaseQuality() {
+  decreaseQuality () {
     if (this.quality > 0) this.quality--;
+  }
+
+  expire () {
+    this.quality = 0;
   }
 }
