@@ -4,7 +4,6 @@ describe ('ItemRules', () => {
     vest = new Item('+5 Dexterity Vest', 10, 20);
     agedBrie = new Item('Aged Brie', 2, 0);
     sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
-    expiredSulfuras = new Item('Sulfuras, Hand of Ragnaros', -1, 80);
     conjuredCake = new Item('Conjured Mana Cake', 3, 6);
   });
 
@@ -12,6 +11,12 @@ describe ('ItemRules', () => {
     it ('reduces quality by 1', () => {
       rules.applyStandard(vest);
       expect(vest.quality).toEqual(19);
+    });
+
+    it ('reduces quality by 2 when item is expired', () => {
+      var expired = new Item ('expired', 0, 5);
+      rules.applyStandard(expired);
+      expect(expired.quality).toEqual(3);
     });
   });
 

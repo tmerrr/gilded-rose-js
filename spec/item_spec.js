@@ -88,4 +88,14 @@ describe ('Item', () => {
       expect(pass1.isBackstagePass()).toBeTrue();
     });
   });
+
+  describe ('#isSulfuras', () => {
+    it ('returns false when item name does NOT include Sulfuras', () => {
+      expect(vest.isSulfuras()).toBeFalse();
+    });
+
+    it ('returns true when item name includes Sulfuras', () => {
+      expect(sulfuras.isSulfuras()).toBeTrue();
+    });
+  })
 });

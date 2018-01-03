@@ -19,7 +19,7 @@ describe ('Gilded Rose', () => {
 
     it ('has an instance of ItemRules', () => {
       var shop = new Shop ();
-      expect(shop._rules.constructor.name).toEqual('ItemRules')
+      expect(shop.rules.constructor.name).toEqual('ItemRules')
     })
   })
 

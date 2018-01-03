@@ -1,6 +1,10 @@
 class ItemRules {
   applyStandard (item) {
-    item.decreaseQuality();
+    if (item.sellIn <= 0) {
+      item.decreaseQuality(2);
+    } else {
+      item.decreaseQuality();
+    }
   }
 
   applyAgedBrie (item) {

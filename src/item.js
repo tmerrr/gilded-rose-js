@@ -30,10 +30,14 @@ class Item {
   }
 
   isAgedBrie () {
-    return this.name === 'Aged Brie'
+    return this.name === 'Aged Brie';
+  }
+
+  isSulfuras () {
+    return this.name.includes('Sulfuras');
   }
 
   isBackstagePass () {
-    return this.name.includes('Backstage pass')
+    return this.name.includes('Backstage pass');
   }
 }
