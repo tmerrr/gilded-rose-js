@@ -1,6 +1,10 @@
 describe ('Item', () => {
   beforeEach( () => {
     item = new Item('cheese', 2, 5);
+    vest = new Item('+5 Dexterity Vest', 10, 20);
+    agedBrie = new Item('Aged Brie', 2, 0);
+    sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
+    pass1 = new Item('Backstage passes to a TAFKAL80ETC concert', 15, 20);
   });
 
   describe ('Properties:', () => {
@@ -62,6 +66,26 @@ describe ('Item', () => {
     it ('sets the quality to 0', () => {
       item.expire();
       expect(item.quality).toEqual(0);
+    });
+  });
+
+  describe('#isAgedBrie', () => {
+    it ('returns false when item name is NOT Aged Brie', () => {
+      expect(vest.isAgedBrie()).toBeFalse();
+    });
+
+    it ('returns true when item name is Aged Brie', () => {
+      expect(agedBrie.isAgedBrie()).toBeTrue();
+    });
+  });
+
+  describe ('#isBackstagePass', () => {
+    it ('returns false when item name does NOT include Backstage pass', () => {
+      expect(vest.isBackstagePass()).toBeFalse();
+    });
+
+    it ('returns true when item name includes Backstage pass', () => {
+      expect(pass1.isBackstagePass()).toBeTrue();
     });
   });
 });

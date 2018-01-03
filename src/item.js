@@ -28,4 +28,12 @@ class Item {
   expire () {
     this.quality = 0;
   }
+
+  isAgedBrie () {
+    return this.name === 'Aged Brie'
+  }
+
+  isBackstagePass () {
+    return this.name.includes('Backstage pass')
+  }
 }
