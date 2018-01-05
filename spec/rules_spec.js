@@ -1,10 +1,17 @@
 describe ('ItemRules', () => {
   beforeEach( () => {
+    class DoubleItem {
+      constructor(name, sellIn, quality) {
+        this.name     = name;
+        this.sellIn   = sellIn;
+        this.quality  = quality;
+      }
+    }
     rules = new ItemRules ();
-    vest = new Item('+5 Dexterity Vest', 10, 20);
-    agedBrie = new Item('Aged Brie', 2, 0);
-    sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
-    conjuredCake = new Item('Conjured Mana Cake', 3, 6);
+    vest = new DoubleItem('+5 Dexterity Vest', 10, 20);
+    agedBrie = new DoubleItem('Aged Brie', 2, 0);
+    sulfuras = new DoubleItem('Sulfuras, Hand of Ragnaros', 0, 80);
+    conjuredCake = new DoubleItem('Conjured Mana Cake', 3, 6);
   });
 
   describe ('Properties:', () => {
@@ -20,7 +27,7 @@ describe ('ItemRules', () => {
     });
 
     it ('reduces quality by 2 when item is expired', () => {
-      var expired = new Item ('expired', 0, 5);
+      let expired = new Item ('expired', 0, 5);
       rules._applyStandard(expired);
       expect(expired.quality).toEqual(3);
     });
@@ -35,25 +42,25 @@ describe ('ItemRules', () => {
 
   describe ('#_applyBackstagePass', () => {
     it ('increase in quality by 1, when the sellIn is over 10', () => {
-      var pass = new Item('Backstage passes to a TAFKAL80ETC concert', 11, 20);
+      let pass = new Item('Backstage passes to a TAFKAL80ETC concert', 11, 20);
       rules._applyBackstagePass(pass);
       expect(pass.quality).toEqual(21);
     });
 
     it ('increase in quality by 2, when the sellIn is 10 or less', () => {
-      var pass = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 20);
+      let pass = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 20);
       rules._applyBackstagePass(pass);
       expect(pass.quality).toEqual(22);
     });
 
     it ('increase in quality by 3, when the sellIn is 5 or less', () => {
-      var pass = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 20);
+      let pass = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 20);
       rules._applyBackstagePass(pass);
       expect(pass.quality).toEqual(23);
     });
 
     it ('quality drops to 0, when the sellIn is 0 or less', () => {
-      var pass = new Item('Backstage passes to a TAFKAL80ETC concert', 0, 20);
+      let pass = new Item('Backstage passes to a TAFKAL80ETC concert', 0, 20);
       rules._applyBackstagePass(pass);
       expect(pass.quality).toEqual(0);
     });
