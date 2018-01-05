@@ -3,7 +3,7 @@ class ItemRules {
     this.updateItem = updateItem;
   }
 
-  applyStandard (item) {
+  _applyStandard (item) {
     if (item.sellIn <= 0) {
       this.updateItem.decreaseQuality(item, 2)
     } else {
@@ -11,11 +11,11 @@ class ItemRules {
     }
   }
 
-  applyAgedBrie (item) {
+  _applyAgedBrie (item) {
     this.updateItem.increaseQuality(item);
   }
 
-  applyBackstagePass (item) {
+  _applyBackstagePass (item) {
     if (item.sellIn <= 0) {
       this.updateItem.setQualityToZero(item);
     } else if (item.sellIn <= 5) {
@@ -27,11 +27,19 @@ class ItemRules {
     }
   }
 
-  applyConjured (item) {
+  _applyConjured (item) {
     if (item.sellIn <= 0) {
       this.updateItem.decreaseQuality(item, 4)
     } else {
       this.updateItem.decreaseQuality(item, 2)
+    }
+  }
+
+  applyRule (item) {
+    if (item.name.includes('Aged Brie')) {
+      this._applyAgedBrie(item)
+    } else {
+      this._applyStandard(item)
     }
   }
 }
