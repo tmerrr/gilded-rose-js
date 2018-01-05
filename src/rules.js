@@ -1,33 +1,37 @@
 class ItemRules {
+  constructor(updateItem = new UpdateItem()) {
+    this.updateItem = updateItem;
+  }
+
   applyStandard (item) {
     if (item.sellIn <= 0) {
-      item.decreaseQuality(2);
+      this.updateItem.decreaseQuality(item, 2)
     } else {
-      item.decreaseQuality();
+      this.updateItem.decreaseQuality(item)
     }
   }
 
   applyAgedBrie (item) {
-    item.increaseQuality();
-  }
-
-  applyConjured (item) {
-    if (item.sellIn <= 0) {
-      item.decreaseQuality(4);
-    } else {
-      item.decreaseQuality(2);
-    }
+    this.updateItem.increaseQuality(item);
   }
 
   applyBackstagePass (item) {
     if (item.sellIn <= 0) {
-      item.expire()
+      this.updateItem.setQualityToZero(item);
     } else if (item.sellIn <= 5) {
-      item.increaseQuality(3);
+      this.updateItem.increaseQuality(item, 3)
     } else if (item.sellIn <= 10) {
-      item.increaseQuality(2);
+      this.updateItem.increaseQuality(item, 2)
     } else {
-      item.increaseQuality();
+      this.updateItem.increaseQuality(item)
+    }
+  }
+
+  applyConjured (item) {
+    if (item.sellIn <= 0) {
+      this.updateItem.decreaseQuality(item, 4)
+    } else {
+      this.updateItem.decreaseQuality(item, 2)
     }
   }
 }

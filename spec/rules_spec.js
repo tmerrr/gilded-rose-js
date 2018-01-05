@@ -7,6 +7,12 @@ describe ('ItemRules', () => {
     conjuredCake = new Item('Conjured Mana Cake', 3, 6);
   });
 
+  describe ('Properties:', () => {
+    it ('is instantiated with an instance of UpdateItem', () => {
+      expect(rules.updateItem.constructor.name).toEqual('UpdateItem')
+    })
+  })
+
   describe ('#applyStandard', () => {
     it ('reduces quality by 1', () => {
       rules.applyStandard(vest);
