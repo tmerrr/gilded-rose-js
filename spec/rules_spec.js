@@ -7,75 +7,100 @@ describe ('ItemRules', () => {
         this.quality  = quality;
       }
     }
-    rules = new ItemRules ();
+
+    class DoubleUpdateItem {
+      decreaseQuality (item, value) {
+
+      }
+
+      increaseQuality (item, value) {
+
+      }
+
+      setQualityToZero() {
+
+      }
+    }
+
+    doubleUpdateItem = new DoubleUpdateItem()
+    rules = new ItemRules (doubleUpdateItem);
     vest = new DoubleItem('+5 Dexterity Vest', 10, 20);
+    expired = new DoubleItem ('expired', 0, 5);
     agedBrie = new DoubleItem('Aged Brie', 2, 0);
+    pass1 = new DoubleItem('Backstage pass', 11, 20)
+    pass2 = new DoubleItem('Backstage pass', 10, 20)
+    pass3 = new DoubleItem('Backstage pass', 5, 20)
+    expiredPass = new DoubleItem('Backstage pass', 0, 20)
     sulfuras = new DoubleItem('Sulfuras, Hand of Ragnaros', 0, 80);
     conjuredCake = new DoubleItem('Conjured Mana Cake', 3, 6);
   });
 
   describe ('Properties:', () => {
     it ('is instantiated with an instance of UpdateItem', () => {
-      expect(rules.updateItem.constructor.name).toEqual('UpdateItem')
+      expect(rules.updateItem.constructor.name).toEqual('DoubleUpdateItem')
     })
   })
 
   describe ('#_applyStandard', () => {
     it ('reduces quality by 1', () => {
+      spyOn(doubleUpdateItem, 'decreaseQuality')
       rules._applyStandard(vest);
-      expect(vest.quality).toEqual(19);
+      expect(doubleUpdateItem.decreaseQuality).toHaveBeenCalledWith(vest)
     });
 
     it ('reduces quality by 2 when item is expired', () => {
-      let expired = new Item ('expired', 0, 5);
+      spyOn(doubleUpdateItem, 'decreaseQuality')
       rules._applyStandard(expired);
-      expect(expired.quality).toEqual(3);
+      expect(doubleUpdateItem.decreaseQuality).toHaveBeenCalledWith(expired, 2)
     });
   });
 
   describe ('#_applyAgedBrie', () => {
     it ('increase quality by 1', () => {
+      spyOn(doubleUpdateItem, 'increaseQuality')
       rules._applyAgedBrie(agedBrie);
-      expect(agedBrie.quality).toEqual(1);
+      expect(doubleUpdateItem.increaseQuality).toHaveBeenCalledWith(agedBrie)
     });
   });
 
   describe ('#_applyBackstagePass', () => {
     it ('increase in quality by 1, when the sellIn is over 10', () => {
-      let pass = new Item('Backstage passes to a TAFKAL80ETC concert', 11, 20);
-      rules._applyBackstagePass(pass);
-      expect(pass.quality).toEqual(21);
+      spyOn(doubleUpdateItem, 'increaseQuality')
+      rules._applyBackstagePass(pass1);
+      expect(doubleUpdateItem.increaseQuality).toHaveBeenCalledWith(pass1);
     });
 
     it ('increase in quality by 2, when the sellIn is 10 or less', () => {
-      let pass = new Item('Backstage passes to a TAFKAL80ETC concert', 10, 20);
-      rules._applyBackstagePass(pass);
-      expect(pass.quality).toEqual(22);
+      spyOn(doubleUpdateItem, 'increaseQuality');
+      rules._applyBackstagePass(pass2);
+      expect(doubleUpdateItem.increaseQuality).toHaveBeenCalledWith(pass2, 2)
     });
 
     it ('increase in quality by 3, when the sellIn is 5 or less', () => {
-      let pass = new Item('Backstage passes to a TAFKAL80ETC concert', 5, 20);
-      rules._applyBackstagePass(pass);
-      expect(pass.quality).toEqual(23);
+      spyOn(doubleUpdateItem, 'increaseQuality')
+      rules._applyBackstagePass(pass3);
+      expect(doubleUpdateItem.increaseQuality).toHaveBeenCalledWith(pass3, 3);
     });
 
     it ('quality drops to 0, when the sellIn is 0 or less', () => {
-      let pass = new Item('Backstage passes to a TAFKAL80ETC concert', 0, 20);
-      rules._applyBackstagePass(pass);
-      expect(pass.quality).toEqual(0);
+      spyOn(doubleUpdateItem, 'setQualityToZero')
+      rules._applyBackstagePass(expiredPass);
+      expect(doubleUpdateItem.setQualityToZero).toHaveBeenCalled();
     });
   });
 
   describe ('#_applyConjured', () => {
     it ('decreases in quality by 2', () => {
+      spyOn(doubleUpdateItem, 'decreaseQuality')
       rules._applyConjured(conjuredCake);
-      expect(conjuredCake.quality).toEqual(4);
+      expect(doubleUpdateItem.decreaseQuality).toHaveBeenCalledWith(conjuredCake, 2)
     });
 
     it ('decreases in quality by 4 when expired', () => {
+      spyOn(doubleUpdateItem, 'decreaseQuality')
       conjuredCake.sellIn = 0;
       rules._applyConjured(conjuredCake);
-      expect(conjuredCake.quality).toEqual(2);
+      expect(doubleUpdateItem.decreaseQuality).toHaveBeenCalledWith(conjuredCake, 4)
     });
   });
 
@@ -114,8 +139,7 @@ describe ('ItemRules', () => {
 
     it ('calls the _applyBackstagePass on Backstage Pass', () => {
       spyOn(rules, '_applyBackstagePass')
-      let pass = new Item('Backstage pass', 10, 10)
-      rules.apply(pass)
+      rules.apply(pass1)
       expect(rules._applyBackstagePass).toHaveBeenCalled()
     })
 
@@ -123,8 +147,7 @@ describe ('ItemRules', () => {
       spyOn(rules, '_applyStandard')
       spyOn(rules, '_applyAgedBrie')
       spyOn(rules, '_applyConjured')
-      let pass = new Item('Backstage pass', 10, 10)
-      rules.apply (pass)
+      rules.apply(pass1)
       expect(rules._applyStandard).not.toHaveBeenCalled()
       expect(rules._applyAgedBrie).not.toHaveBeenCalled()
       expect(rules._applyConjured).not.toHaveBeenCalled()
