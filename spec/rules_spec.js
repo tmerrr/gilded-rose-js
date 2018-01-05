@@ -105,6 +105,11 @@ describe ('ItemRules', () => {
   });
 
   describe ('#apply', () => {
+    it ('redcues the sellIn property by 1', () => {
+      rules.apply(vest);
+      expect(vest.sellIn).toEqual(9)
+    })
+
     it ('calls the _applyStandard rule on a standard item', () => {
       spyOn(rules, '_applyStandard')
       rules.apply (vest)

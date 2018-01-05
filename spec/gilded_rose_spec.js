@@ -1,9 +1,7 @@
 describe ('Gilded Rose', () => {
   beforeEach( () => {
     class DoubleItem {
-      constructor(name) {
-        this.name = name;
-      }
+
     }
 
     class DoubleItemRules {
@@ -12,11 +10,11 @@ describe ('Gilded Rose', () => {
         }
     }
 
-    vest = new DoubleItem('+5 Dexterity Vest');
-    agedBrie = new DoubleItem('Aged Brie');
-    sulfuras = new DoubleItem('Sulfuras, Hand of Ragnaros');
-    pass = new DoubleItem('Backstage passes to a TAFKAL80ETC concert');
-    conjuredCake = new DoubleItem('Conjured Mana Cake');
+    vest = new DoubleItem());
+    agedBrie = new DoubleItem();
+    sulfuras = new DoubleItem();
+    pass = new DoubleItem();
+    conjuredCake = new DoubleItem();
 
     doubleRules = new DoubleItemRules()
 
