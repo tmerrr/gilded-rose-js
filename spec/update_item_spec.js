@@ -1,7 +1,15 @@
 describe ('Update Item', () => {
   beforeEach( () => {
+    class DoubleItem {
+      constructor(name, sellIn, quality) {
+        this.name     = name;
+        this.sellIn   = sellIn;
+        this.quality  = quality;
+      }
+    }
+    item = new DoubleItem('cheese', 2, 5);
+
     updateItem = new UpdateItem ()
-    item = new Item('cheese', 2, 5);
   })
 
   describe ('#decreaseSellIn', () => {
