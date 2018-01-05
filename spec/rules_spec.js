@@ -5,24 +5,6 @@ describe ('ItemRules', () => {
     agedBrie = new Item('Aged Brie', 2, 0);
     sulfuras = new Item('Sulfuras, Hand of Ragnaros', 0, 80);
     conjuredCake = new Item('Conjured Mana Cake', 3, 6);
-
-    // class DoubleUpdateItem {
-    //   _applyStandard (item) {
-    //     item.isStandardCalled = true;
-    //   }
-    //
-    //   _applyAgedBrie (item) {
-    //     item.isAgedBrieCalled = true;
-    //   }
-    //
-    //   _applyBackstagePass (item) {
-    //     item.isBackstagePassCalled = true;
-    //   }
-    //
-    //   _applyConjured (item) {
-    //     item.isConjuredCalled = true;
-    //   }
-    // }
   });
 
   describe ('Properties:', () => {
