@@ -35,9 +35,16 @@ class ItemRules {
     }
   }
 
-  applyRule (item) {
+  apply (item) {
+    item.sellIn -= 1;
     if (item.name.includes('Aged Brie')) {
       this._applyAgedBrie(item)
+    } else if (item.name.includes('Backstage pass')) {
+      this._applyBackstagePass(item)
+    } else if (item.name.includes('Conjured')) {
+      this._applyConjured(item)
+    } else if (item.name.includes('Sulfuras')) {
+
     } else {
       this._applyStandard(item)
     }

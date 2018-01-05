@@ -90,10 +90,10 @@ describe ('ItemRules', () => {
     });
   });
 
-  describe ('#applyRule', () => {
+  describe ('#apply', () => {
     it ('calls the _applyStandard rule on a standard item', () => {
       spyOn(rules, '_applyStandard')
-      rules.applyRule (vest)
+      rules.apply (vest)
       expect(rules._applyStandard).toHaveBeenCalled()
     })
 
@@ -101,7 +101,7 @@ describe ('ItemRules', () => {
       spyOn(rules, '_applyAgedBrie')
       spyOn(rules, '_applyBackstagePass')
       spyOn(rules, '_applyConjured')
-      rules.applyRule (vest)
+      rules.apply (vest)
       expect(rules._applyAgedBrie).not.toHaveBeenCalled()
       expect(rules._applyBackstagePass).not.toHaveBeenCalled()
       expect(rules._applyConjured).not.toHaveBeenCalled()
@@ -109,7 +109,7 @@ describe ('ItemRules', () => {
 
     it ('calls the _applyAgedBrie on Aged Brie', () => {
       spyOn(rules, '_applyAgedBrie')
-      rules.applyRule(agedBrie)
+      rules.apply(agedBrie)
       expect(rules._applyAgedBrie).toHaveBeenCalled()
     })
 
@@ -117,10 +117,44 @@ describe ('ItemRules', () => {
       spyOn(rules, '_applyStandard')
       spyOn(rules, '_applyBackstagePass')
       spyOn(rules, '_applyConjured')
-      rules.applyRule (agedBrie)
+      rules.apply (agedBrie)
       expect(rules._applyStandard).not.toHaveBeenCalled()
       expect(rules._applyBackstagePass).not.toHaveBeenCalled()
       expect(rules._applyConjured).not.toHaveBeenCalled()
+    })
+
+    it ('calls the _applyBackstagePass on Backstage Pass', () => {
+      spyOn(rules, '_applyBackstagePass')
+      let pass = new Item('Backstage pass', 10, 10)
+      rules.apply(pass)
+      expect(rules._applyBackstagePass).toHaveBeenCalled()
+    })
+
+    it ("doesn't call other rules on Backstage Pass", () => {
+      spyOn(rules, '_applyStandard')
+      spyOn(rules, '_applyAgedBrie')
+      spyOn(rules, '_applyConjured')
+      let pass = new Item('Backstage pass', 10, 10)
+      rules.apply (pass)
+      expect(rules._applyStandard).not.toHaveBeenCalled()
+      expect(rules._applyAgedBrie).not.toHaveBeenCalled()
+      expect(rules._applyConjured).not.toHaveBeenCalled()
+    })
+
+    it ('calls the _applyConjured on Conjured', () => {
+      spyOn(rules, '_applyConjured')
+      rules.apply(conjuredCake)
+      expect(rules._applyConjured).toHaveBeenCalled()
+    })
+
+    it ("doesn't call other rules on Conjured", () => {
+      spyOn(rules, '_applyStandard')
+      spyOn(rules, '_applyAgedBrie')
+      spyOn(rules, '_applyBackstagePass')
+      rules.apply (conjuredCake)
+      expect(rules._applyStandard).not.toHaveBeenCalled()
+      expect(rules._applyAgedBrie).not.toHaveBeenCalled()
+      expect(rules._applyBackstagePass).not.toHaveBeenCalled()
     })
   })
 });
